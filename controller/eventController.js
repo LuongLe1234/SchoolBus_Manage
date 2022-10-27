@@ -11,6 +11,26 @@ const getAllEvents = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const getallBusrouter = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getallBusrouter(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getallBusDriver = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getallBusDriver(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
 
 const getEvent = async (req, res, next) => {
     try {
@@ -54,6 +74,8 @@ const deleteEvent = async (req, res, next) => {
 }
 
 module.exports = {
+    getallBusDriver,
+    getallBusrouter,
     getAllEvents,
     getEvent,
     addEvent,

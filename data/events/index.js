@@ -9,12 +9,38 @@ const getEvents = async(eventId) => {
         const sqlQueries = await utils.loadSqlQueries('events');
         const event = await pool.request()
                             .input('eventId', sql.Text, eventId)
-                            .query(sqlQueries.eventlist);
+                            .query(sqlQueries.listStudents);
         return event.recordset;
     } catch (error) {
         return error.message;
     }
 }
+const getallBusrouter = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.listBusRouter);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getallBusDriver = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.listRouterDriver);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+
 
 
 const getById = async(userId) => {
@@ -78,6 +104,8 @@ const deleteEvent = async (eventId) => {
 }
 
 module.exports = {
+    getallBusDriver,
+    getallBusrouter,
     getEvents,
     getById,
     creatEvent,
