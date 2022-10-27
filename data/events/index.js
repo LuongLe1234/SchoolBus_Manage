@@ -17,12 +17,12 @@ const getEvents = async(eventId) => {
 }
 
 
-const getById = async(codeStudent) => {
+const getById = async(userId) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('events');
         const event = await pool.request()
-                            .input('codeStudent', sql.NChar(10), codeStudent)
+                            .input('userId', sql.NChar(10), userId)
                             .query(sqlQueries.eventbyId);
         return event.recordset;
     } catch (error) {
