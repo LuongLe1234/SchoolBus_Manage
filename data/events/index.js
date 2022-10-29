@@ -48,7 +48,7 @@ const getById = async(userId) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('events');
         const event = await pool.request()
-                            .input('userId', sql.NChar(10), userId)
+                            .input('userId', sql.NVarChar(50), userId)
                             .query(sqlQueries.eventbyId);
         return event.recordset;
     } catch (error) {

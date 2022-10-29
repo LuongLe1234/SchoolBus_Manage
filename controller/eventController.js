@@ -34,8 +34,8 @@ const getallBusDriver = async (req, res, next) => {
 
 const getEvent = async (req, res, next) => {
     try {
-        const codeStudent = req.params.id;
-        const event = await eventData.getById(codeStudent);
+        const userId = req.params.id;
+        const event = await eventData.getById(userId);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
