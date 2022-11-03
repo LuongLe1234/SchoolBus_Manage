@@ -1,4 +1,5 @@
 'use strict';
+/*Take data add update or delete*/
 
 const eventData = require('../data/events');
 
