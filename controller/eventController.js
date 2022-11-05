@@ -35,18 +35,18 @@ const getallBusDriver = async (req, res, next) => {
 
 const getEvent = async (req, res, next) => {
     try {
-        const userId = req.params.id;
-        const event = await eventData.getById(userId);
+        const studentCode = req.params.id;
+        const event = await eventData.getById(studentCode);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
 
-const addEvent = async (req, res, next) => {
+const addUsers = async (req, res, next) => {
     try {
-        const data = req.body;
-        const insert = await eventData.creatEvent(data);
+        const eventdata = req.body;
+        const insert = await eventData.createUser(eventdata);
         res.send(insert);
     } catch (error) {
         res.status(400).send(error.message);
@@ -79,7 +79,7 @@ module.exports = {
     getallBusrouter,
     getAllEvents,
     getEvent,
-    addEvent,
+    addUsers,
     updatEvent,
     deleteEvent
 }

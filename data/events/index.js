@@ -43,30 +43,31 @@ const getallBusDriver = async(eventId) => {
 
 
 
-const getById = async(userId) => {
+const getById = async(studentCode) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('events');
         const event = await pool.request()
-                            .input('userId', sql.NVarChar(50), userId)
-                            .query(sqlQueries.eventbyId);
+                            .input('studentCode', sql.NVarChar(50), studentCode)
+                            .query(sqlQueries.studentbyID);
         return event.recordset;
     } catch (error) {
         return error.message;
     }
 }
 
-const creatEvent = async (eventdata) => {
+const createUser = async (eventdata) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('events');
         const insertEvent = await pool.request()
-                            .input('email', sql.NChar(40), eventdata.email)
-                            .input('pickUpId', sql.Int, eventdata.pickUpId)
-                            .input('parentPhoneNumber', sql.NChar(15), eventdata.parentPhoneNumber)
-                            .input('semester', sql.NChar(25), eventdata.semester)
-                            .input('codeStudent', sql.NChar(10), eventdata.codeStudent)
-                            .query(sqlQueries.createEvent);                            
+                            .input('userId', sql.NVarChar(50), eventdata.userId)
+                            .input('email', sql.NVarChar(50), eventdata.email)
+                            .input('status', sql.Bit, eventdata.status)
+                            .input('image', sql.Binary(50), eventdata.image)
+                            .input('phoneNumber', sql.NVarChar(50), eventdata.phoneNumber)
+                            .input('campusId', sql.Int, eventdata.campusId)
+                            .query(sqlQueries.insertUser);                            
         return insertEvent.recordset;
     } catch (error) {
         return error.message;
@@ -108,7 +109,7 @@ module.exports = {
     getallBusrouter,
     getEvents,
     getById,
-    creatEvent,
+    createUser,
     updateEvent,
     deleteEvent
 }
