@@ -1,5 +1,5 @@
 'use strict';
-/*Take data add update or delete*/
+
 
 const eventData = require('../data/events');
 
@@ -52,7 +52,15 @@ const addUsers = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
-
+const getManager = async (req, res, next) => {
+    try {
+        const studentCode = req.params.id;
+        const event = await eventData.getById(studentCode);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const updatEvent = async (req, res, next) => {
     try {
         const eventId =  req.params.id;
