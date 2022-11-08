@@ -109,8 +109,8 @@ const addUsers = async (req, res, next) => {
 }
 const getManager = async (req, res, next) => {
     try {
-        const studentCode = req.params.id;
-        const event = await eventData.getById(studentCode);
+        const roleId = req.params.id;
+        const event = await eventData.getManagerbyrole(roleId);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
@@ -148,6 +148,7 @@ module.exports = {
     updatEvent,
     getAttendanceDetail,
     getCountAbsent,
+    getManager,
     getAttendanceCurrent,
     getallbusStudentSemester,
     deleteEvent

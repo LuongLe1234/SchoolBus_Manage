@@ -93,6 +93,18 @@ const getById = async(studentCode) => {
         return error.message;
     }
 }
+const getManagerbyrole = async(roleId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('roleId', sql.Int, roleId)
+                            .query(sqlQueries.listallAccount);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 
 const getAttendancebyCode = async(studentCode) => {
     try {
@@ -193,6 +205,7 @@ module.exports = {
     createUser,
     getCountAorA,
     updateEvent,
+    getManagerbyrole,
     getAttendanceToday,
     getDetailAttend,
     deleteEvent

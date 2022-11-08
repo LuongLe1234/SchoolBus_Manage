@@ -9,6 +9,7 @@ router.get('/busStudentSemester', eventControll.getallbusStudentSemester);
 router.get('/eventBusRouter',eventControll.getallBusrouter);
 router.get('/eventBusdriver',eventControll.getallBusDriver);
 router.get('/eventgetID/:id', eventControll.getEvent);
+router.get('/manager/:id', eventControll.getManager);
 router.get('/countA/:id', eventControll.getCountAbsent);
 router.get('/attendanceCode/:id', eventControll.getAttendanceCode);
 router.get('/attendanceCurrent', eventControll.getAttendanceCurrent);
