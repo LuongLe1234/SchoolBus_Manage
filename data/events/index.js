@@ -15,6 +15,30 @@ const getEvents = async(eventId) => {
         return error.message;
     }
 }
+const getCountAorA = async(busStudentId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('busStudentId', sql.NVarChar(50), busStudentId)
+                            .query(sqlQueries.countAbsent);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getnow = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.getStudentBusthisSemester);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 const getallAttendance = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -27,6 +51,7 @@ const getallAttendance = async(eventId) => {
         return error.message;
     }
 }
+
 
 const getallBusrouter = async(eventId) => {
     try {
@@ -68,6 +93,46 @@ const getById = async(studentCode) => {
         return error.message;
     }
 }
+
+const getAttendancebyCode = async(studentCode) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('studentCode', sql.NVarChar(50), studentCode)
+                            .query(sqlQueries.getAttendance);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const getDetailAttend = async(studentCode) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('studentCode', sql.NVarChar(50), studentCode)
+                            .query(sqlQueries.detailAttendance);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const getAttendanceToday = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.attendanceStudentToday);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 
 const createUser = async (eventdata) => {
     try {
@@ -123,7 +188,12 @@ module.exports = {
     getallAttendance,
     getEvents,
     getById,
+    getnow,
+    getAttendancebyCode,
     createUser,
+    getCountAorA,
     updateEvent,
+    getAttendanceToday,
+    getDetailAttend,
     deleteEvent
 }

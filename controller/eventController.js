@@ -12,6 +12,24 @@ const getAllEvents = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const getCountAbsent = async (req, res, next) => {
+    try {
+        const busStudentId = req.params.id;
+        const event = await eventData.getCountAorA(busStudentId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getallbusStudentSemester = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getnow(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const getallBusrouter = async (req, res, next) => {
     try {
         const eventId = req.params.id;
@@ -41,10 +59,39 @@ const getAllAttendance = async (req, res, next) => {
 }
 
 
+
 const getEvent = async (req, res, next) => {
     try {
         const studentCode = req.params.id;
         const event = await eventData.getById(studentCode);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getAttendanceCode = async (req, res, next) => {
+    try {
+        const busStudentId = req.params.id;
+        const event = await eventData.getAttendancebyCode(busStudentId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getAttendanceDetail = async (req, res, next) => {
+    try {
+        const studentCode = req.params.id;
+        const event = await eventData.getDetailAttend(studentCode);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+const getAttendanceCurrent = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getAttendanceToday(eventId);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
@@ -97,6 +144,11 @@ module.exports = {
     getAllEvents,
     getEvent,
     addUsers,
+    getAttendanceCode,
     updatEvent,
+    getAttendanceDetail,
+    getCountAbsent,
+    getAttendanceCurrent,
+    getallbusStudentSemester,
     deleteEvent
 }
