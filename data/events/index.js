@@ -15,6 +15,19 @@ const getEvents = async(eventId) => {
         return error.message;
     }
 }
+const getallAttendance = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('events');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.getAttendance);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const getallBusrouter = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -107,6 +120,7 @@ const deleteEvent = async (eventId) => {
 module.exports = {
     getallBusDriver,
     getallBusrouter,
+    getallAttendance,
     getEvents,
     getById,
     createUser,

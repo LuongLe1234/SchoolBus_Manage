@@ -30,7 +30,15 @@ const getallBusDriver = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
-
+const getAllAttendance = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getallAttendance(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 
 
 const getEvent = async (req, res, next) => {
@@ -84,6 +92,7 @@ const deleteEvent = async (req, res, next) => {
 
 module.exports = {
     getallBusDriver,
+    getAllAttendance,
     getallBusrouter,
     getAllEvents,
     getEvent,
