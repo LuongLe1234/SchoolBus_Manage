@@ -1,7 +1,7 @@
 'use strict';
 
 
-const eventData = require('../data/events');
+const eventData = require('../data');
 
 const getAllEvents = async (req, res, next) => {
     try {
