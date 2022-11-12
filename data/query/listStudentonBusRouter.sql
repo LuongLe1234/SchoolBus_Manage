@@ -5,4 +5,4 @@ INNER JOIN dbo.busStop p2 ON m.pickUpId2 = p2.pickUpId
 INNER JOIN dbo.busStop p3 ON m.pickUpId3 = p3.pickUpId
 INNER JOIN SchoolBus.dbo.student ON SchoolBus.dbo.busStudent.studentCode=SchoolBus.dbo.student.studentCode
 INNER JOIN SchoolBus.dbo.users ON SchoolBus.dbo.student.userId = SchoolBus.dbo.users.userId
-where dbo.users.status=1 and dbo.student.studentCode  like  '%'+@studentCode+'%'
+where dbo.users.status=1 and dbo.busStudent.busID like  '%'+@busID+'%'

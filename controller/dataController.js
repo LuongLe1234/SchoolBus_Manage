@@ -3,10 +3,10 @@
 
 const eventData = require('../data');
 
-const getAllEvents = async (req, res, next) => {
+const getallBusStudent = async (req, res, next) => {
     try {
         const eventId = req.params.id;
-        const event = await eventData.getEvents(eventId);
+        const event = await eventData.getBStudent(eventId);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
@@ -58,12 +58,28 @@ const getAllAttendance = async (req, res, next) => {
     }
 }
 
-
-
 const getEvent = async (req, res, next) => {
     try {
         const studentCode = req.params.id;
         const event = await eventData.getById(studentCode);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getBusrouterbyID = async (req, res, next) => {
+    try {
+        const busId = req.params.id;
+        const event = await eventData.getBusRTID(busId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getStudentonBusRouter = async (req, res, next) => {
+    try {
+        const busId = req.params.id;
+        const event = await eventData.getStudentOnBus(busId);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
@@ -141,8 +157,10 @@ module.exports = {
     getallBusDriver,
     getAllAttendance,
     getallBusrouter,
-    getAllEvents,
+    getallBusStudent,
     getEvent,
+    getStudentonBusRouter,
+    getBusrouterbyID,
     addUsers,
     getAttendanceCode,
     updatEvent,

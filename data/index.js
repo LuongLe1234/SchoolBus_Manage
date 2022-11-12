@@ -3,10 +3,10 @@ const utils = require('./utils');
 const config = require('../config');
 const sql = require('mssql');
 
-const getEvents = async(eventId) => {
+const getBStudent = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('eventId', sql.Text, eventId)
                             .query(sqlQueries.listStudents);
@@ -18,7 +18,7 @@ const getEvents = async(eventId) => {
 const getCountAorA = async(busStudentId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('busStudentId', sql.NVarChar(50), busStudentId)
                             .query(sqlQueries.countAbsent);
@@ -30,7 +30,7 @@ const getCountAorA = async(busStudentId) => {
 const getnow = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('eventId', sql.Text, eventId)
                             .query(sqlQueries.getStudentBusthisSemester);
@@ -42,7 +42,7 @@ const getnow = async(eventId) => {
 const getallAttendance = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('eventId', sql.Text, eventId)
                             .query(sqlQueries.getAttendance);
@@ -56,7 +56,7 @@ const getallAttendance = async(eventId) => {
 const getallBusrouter = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('eventId', sql.Text, eventId)
                             .query(sqlQueries.listBusRouter);
@@ -68,7 +68,7 @@ const getallBusrouter = async(eventId) => {
 const getallBusDriver = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('eventId', sql.Text, eventId)
                             .query(sqlQueries.listRouterDriver);
@@ -84,7 +84,7 @@ const getallBusDriver = async(eventId) => {
 const getById = async(studentCode) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('studentCode', sql.NVarChar(50), studentCode)
                             .query(sqlQueries.studentbyID);
@@ -93,10 +93,35 @@ const getById = async(studentCode) => {
         return error.message;
     }
 }
+const getBusRTID = async(busId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('busId', sql.NVarChar(50), busId)
+                            .query(sqlQueries.searchBusRouter);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const getStudentOnBus = async(busId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('busId', sql.NVarChar(50), busId)
+                            .query(sqlQueries.listStudentonBusRouter);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 const getManagerbyrole = async(roleId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('roleId', sql.Int, roleId)
                             .query(sqlQueries.listallAccount);
@@ -109,7 +134,7 @@ const getManagerbyrole = async(roleId) => {
 const getAttendancebyCode = async(studentCode) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('studentCode', sql.NVarChar(50), studentCode)
                             .query(sqlQueries.getAttendance);
@@ -122,7 +147,7 @@ const getAttendancebyCode = async(studentCode) => {
 const getDetailAttend = async(studentCode) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('studentCode', sql.NVarChar(50), studentCode)
                             .query(sqlQueries.detailAttendance);
@@ -135,7 +160,7 @@ const getDetailAttend = async(studentCode) => {
 const getAttendanceToday = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('eventId', sql.Text, eventId)
                             .query(sqlQueries.attendanceStudentToday);
@@ -149,7 +174,7 @@ const getAttendanceToday = async(eventId) => {
 const createUser = async (eventdata) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const insertEvent = await pool.request()
                             .input('userId', sql.NVarChar(50), eventdata.userId)
                             .input('email', sql.NVarChar(50), eventdata.email)
@@ -167,7 +192,7 @@ const createUser = async (eventdata) => {
 const updateEvent = async (eventId, data) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const update = await pool.request()
                         .input('email', sql.NChar(40), eventId)
                         .input('pickUpId', sql.Int, data.eventTitle)
@@ -184,7 +209,7 @@ const updateEvent = async (eventId, data) => {
 const deleteEvent = async (eventId) => {
     try {
         let pool = await sql.connect(config.sql);
-        const sqlQueries = await utils.loadSqlQueries('events');
+        const sqlQueries = await utils.loadSqlQueries('query');
         const deleteEvent = await pool.request()
                             .input('eventId', sql.Text, eventId)
                             .query(sqlQueries.deleteEvent);
@@ -198,9 +223,11 @@ module.exports = {
     getallBusDriver,
     getallBusrouter,
     getallAttendance,
-    getEvents,
+    getBStudent,
     getById,
     getnow,
+    getStudentOnBus,
+    getBusRTID,
     getAttendancebyCode,
     createUser,
     getCountAorA,
