@@ -31,8 +31,17 @@ router.get('/attendanceCodeDetail/:id', eventControll.getAttendanceDetail);
 
 router.get('/getallAttendacne', eventControll.getAllAttendance);
 
+router.get('/getAllStudentAbsentToday',eventControll.getallAbsentStudentToday);
+
+router.post('/createNewBusStudent',eventControll.createNewBusStudent);
 
 router.post('/event', eventControll.addUsers);
+
+router.post('/createBusRouter', eventControll.createnewBusRouter);
+
+
+router.put('/updateManager/:id', eventControll.updateUserSManager);
+
 
 router.put('/event/:id', eventControll.updatEvent);
 

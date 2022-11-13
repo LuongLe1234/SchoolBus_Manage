@@ -51,6 +51,19 @@ const getallAttendance = async(eventId) => {
         return error.message;
     }
 }
+const getAllAbsentStudent_TD
+= async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.listallAbsentStudentToday);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 
 
 const getallBusrouter = async(eventId) => {
@@ -169,6 +182,22 @@ const getAttendanceToday = async(eventId) => {
         return error.message;
     }
 }
+const updateUsers = async (userId, data) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const update = await pool.request()
+                        .input('userId', sql.NVarChar(50), userId)
+                        .input('roleId', sql.Int, data.roleId)
+                        .input('name', sql.NVarChar(50), data.name)
+                        .input('phoneNumber',  sql.NVarChar(50), data.phoneNumber)
+                        .input('campusId',  sql.Int, data.campusId)
+                        .query(sqlQueries.updateUsers);
+        return update.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 
 
 const createUser = async (eventdata) => {
@@ -179,15 +208,55 @@ const createUser = async (eventdata) => {
                             .input('userId', sql.NVarChar(50), eventdata.userId)
                             .input('email', sql.NVarChar(50), eventdata.email)
                             .input('status', sql.Bit, eventdata.status)
-                            .input('image', sql.Binary(50), eventdata.image)
+                            .input('image', sql.VarBinary(sql.MAX), eventdata.image)
                             .input('phoneNumber', sql.NVarChar(50), eventdata.phoneNumber)
                             .input('campusId', sql.Int, eventdata.campusId)
+                            .input('name', sql.NVarChar(50),eventdata.name)
+                            .input('roleId',sql.Int,eventdata.roleId)
                             .query(sqlQueries.insertUser);                            
         return insertEvent.recordset;
     } catch (error) {
         return error.message;
     }
 }
+
+const createBusStudent = async (eventdata) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const insertEvent = await pool.request()
+                            .input('studentCode', sql.NVarChar(50), eventdata.studentCode)
+                            .input('userId', sql.NVarChar(50), eventdata.userId)
+                            .input('birthday', sql.Date, eventdata.birthday)
+                            .input('parentPhoneNumber', sql.NVarChar(50), eventdata.parentPhoneNumber)
+                            .input('gender', sql.Bit, eventdata.gender)
+                            .input('semesterId', sql.Int,eventdata.semesterId)
+                            .input('busId',sql.Int,eventdata.busId)
+                            .input('studentBusId',sql.NVarChar(50),eventdata.studentBusId)
+                            .query(sqlQueries.insertToStudentTable);                            
+        return insertEvent.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const createBusRouter = async (eventdata) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const insertEvent = await pool.request()
+                            .input('busId', sql.Int, eventdata.busId)
+                            .input('pickUpId1', sql.NVarChar(50), eventdata.pickUpId1)
+                            .input('campusId', sql.Int, eventdata.campusId)
+                            .input('plateNumber', sql.NVarChar(50), eventdata.plateNumber)
+                            .input('pickUpId2',sql.NVarChar(50),eventdata.pickUpId2)
+                            .input('pickUpId3',sql.NVarChar(50),eventdata.pickUpId3)
+                            .query(sqlQueries.insertToStudentTable);                            
+        return insertEvent.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 
 const updateEvent = async (eventId, data) => {
     try {
@@ -229,8 +298,14 @@ module.exports = {
     getStudentOnBus,
     getBusRTID,
     getAttendancebyCode,
+    updateUsers,
+    createBusStudent,
     createUser,
     getCountAorA,
+    createBusRouter,
+    
+    getAllAbsentStudent_TD
+,
     updateEvent,
     getManagerbyrole,
     getAttendanceToday,

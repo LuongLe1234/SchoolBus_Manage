@@ -12,6 +12,15 @@ const getallBusStudent = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const getallAbsentStudentToday = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getAllAbsentStudent_TD(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const getCountAbsent = async (req, res, next) => {
     try {
         const busStudentId = req.params.id;
@@ -123,11 +132,40 @@ const addUsers = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+
+const createnewBusRouter = async (req, res, next) => {
+    try {
+        const eventdata = req.body;
+        const insert = await eventData.createBusRouter(eventdata);
+        res.send(insert);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const createNewBusStudent = async (req, res, next) => {
+    try {
+        const eventdata = req.body;
+        const insert = await eventData.createBusStudent(eventdata);
+        res.send(insert);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const getManager = async (req, res, next) => {
     try {
         const roleId = req.params.id;
         const event = await eventData.getManagerbyrole(roleId);
         res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const updateUserSManager = async (req, res, next) => {
+    try {
+        const userId =  req.params.id;
+        const data = req.body;
+        const updated = await eventData.updateUsers(userId, data);
+        res.send(updated);
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -157,14 +195,18 @@ module.exports = {
     getallBusDriver,
     getAllAttendance,
     getallBusrouter,
+    createNewBusStudent,
     getallBusStudent,
     getEvent,
     getStudentonBusRouter,
     getBusrouterbyID,
+    createnewBusRouter,
+    updateUserSManager,
     addUsers,
     getAttendanceCode,
     updatEvent,
     getAttendanceDetail,
+    getallAbsentStudentToday,
     getCountAbsent,
     getManager,
     getAttendanceCurrent,

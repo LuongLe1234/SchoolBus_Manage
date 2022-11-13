@@ -7,6 +7,7 @@ Insert INTO dbo.users
     ,image
     ,phoneNumber
     ,campusId
+    ,name
     )
 VALUES
     (   @userid,
@@ -14,5 +15,15 @@ VALUES
         @status,
         @image,
         @phoneNumber,
-        @campusId
+        @campusId,
+        @name
     )
+Insert INTO dbo.userRole
+(
+    userId
+    ,roleId
+)
+VALUES(
+    @userId,
+    @roleId
+)
