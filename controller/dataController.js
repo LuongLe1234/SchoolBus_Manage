@@ -12,6 +12,15 @@ const getallBusStudent = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const getAllBusStop = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getBusStop(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
 const getallAbsentStudentToday = async (req, res, next) => {
     try {
         const eventId = req.params.id;
@@ -203,6 +212,7 @@ module.exports = {
     createnewBusRouter,
     updateUserSManager,
     addUsers,
+    getAllBusStop,
     getAttendanceCode,
     updatEvent,
     getAttendanceDetail,

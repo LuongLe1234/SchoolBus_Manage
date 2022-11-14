@@ -15,6 +15,19 @@ const getBStudent = async(eventId) => {
         return error.message;
     }
 }
+
+const getBusStop = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.listAllBusStop);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 const getCountAorA = async(busStudentId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -250,7 +263,7 @@ const createBusRouter = async (eventdata) => {
                             .input('plateNumber', sql.NVarChar(50), eventdata.plateNumber)
                             .input('pickUpId2',sql.NVarChar(50),eventdata.pickUpId2)
                             .input('pickUpId3',sql.NVarChar(50),eventdata.pickUpId3)
-                            .query(sqlQueries.insertToStudentTable);                            
+                            .query(sqlQueries.addNewBusRouter);                            
         return insertEvent.recordset;
     } catch (error) {
         return error.message;
@@ -307,6 +320,7 @@ module.exports = {
     getAllAbsentStudent_TD
 ,
     updateEvent,
+    getBusStop,
     getManagerbyrole,
     getAttendanceToday,
     getDetailAttend,

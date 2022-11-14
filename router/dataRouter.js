@@ -6,6 +6,9 @@ const router = express.Router();
 
 router.get('/events', eventControll.getallBusStudent);
 
+
+router.get('/busStop', eventControll.getAllBusStop);
+
 router.get('/busStudentSemester', eventControll.getallbusStudentSemester);
 
 router.get('/eventBusRouter',eventControll.getallBusrouter);
