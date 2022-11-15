@@ -38,6 +38,9 @@ router.get('/getAllStudentAbsentToday',eventControll.getallAbsentStudentToday);
 
 router.post('/createNewBusStudent',eventControll.createNewBusStudent);
 
+router.post('/createBus_Stop',eventControll.createnewBusStop);
+
+
 router.post('/event', eventControll.addUsers);
 
 router.post('/createBusRouter', eventControll.createnewBusRouter);

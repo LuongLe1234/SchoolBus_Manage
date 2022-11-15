@@ -232,6 +232,20 @@ const createUser = async (eventdata) => {
         return error.message;
     }
 }
+const createBusStop = async (eventdata) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const insertEvent = await pool.request()
+                            .input('pickUpId', sql.NVarChar(50), eventdata.pickUpId)
+                            .input('address', sql.NVarChar(50), eventdata.address)
+                     
+                            .query(sqlQueries.addnewBusStop);                            
+        return insertEvent.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 
 const createBusStudent = async (eventdata) => {
     try {
@@ -316,6 +330,7 @@ module.exports = {
     createUser,
     getCountAorA,
     createBusRouter,
+    createBusStop,
     
     getAllAbsentStudent_TD
 ,
