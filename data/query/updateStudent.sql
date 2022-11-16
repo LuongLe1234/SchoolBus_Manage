@@ -1,8 +1,7 @@
 UPDATE [dbo].[Student]
-SET [pickUpId]=@pickUpId,
+SET 
     [parentPhoneNumber]=@parentPhoneNumber,
-    [semester]=@semester,
-    [codeStudent]=@codeStudent
+    [birthday]=@birthday
 
 WHERE [codeStudent]=@codeStudent
 
