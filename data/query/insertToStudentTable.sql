@@ -16,14 +16,12 @@ VALUES
     )
 Insert INTO dbo.busStudent
 (
-    semesterId
-    ,studentCode,
-    busId,
-    studentBusId
+    studentCode,
+    semesterId,
+    busId
 )
 VALUES(
-    @semesterId,
     @studentCode,
-    @busId,
-    @studentBusId
+    @semesterId,
+    @busId
 )

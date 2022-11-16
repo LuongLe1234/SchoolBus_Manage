@@ -119,6 +119,18 @@ const getById = async(studentCode) => {
         return error.message;
     }
 }
+const getPickUpId = async(busId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('busId', sql.VarChar(20), busId)
+                            .query(sqlQueries.getAllPickUpId);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
 const getBusRTID = async(busId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -252,14 +264,13 @@ const createBusStudent = async (eventdata) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('query');
         const insertEvent = await pool.request()
-                            .input('studentCode', sql.NVarChar(50), eventdata.studentCode)
-                            .input('userId', sql.NVarChar(50), eventdata.userId)
+                            .input('studentCode', sql.VarChar(15), eventdata.studentCode)
+                            .input('userId', sql.VarChar(20), eventdata.userId)
                             .input('birthday', sql.Date, eventdata.birthday)
-                            .input('parentPhoneNumber', sql.NVarChar(50), eventdata.parentPhoneNumber)
+                            .input('parentPhoneNumber', sql.varchar(15), eventdata.parentPhoneNumber)
                             .input('gender', sql.Bit, eventdata.gender)
-                            .input('semesterId', sql.Int,eventdata.semesterId)
-                            .input('busId',sql.Int,eventdata.busId)
-                            .input('studentBusId',sql.NVarChar(50),eventdata.studentBusId)
+                            .input('semesterId', sql.VarChar(10),eventdata.semesterId)
+                            .input('busId',sql.VarChar(20),eventdata.busId)
                             .query(sqlQueries.insertToStudentTable);                            
         return insertEvent.recordset;
     } catch (error) {
@@ -339,5 +350,6 @@ module.exports = {
     getManagerbyrole,
     getAttendanceToday,
     getDetailAttend,
-    deleteEvent
+    deleteEvent,
+    getPickUpId
 }

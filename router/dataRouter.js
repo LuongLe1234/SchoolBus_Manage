@@ -17,6 +17,8 @@ router.get('/eventBusdriver',eventControll.getallBusDriver);
 
 router.get('/eventgetID/:id', eventControll.getEvent);
 
+router.get('/allPickUpId/:id', eventControll.getAllPickUpId_Router);
+
 router.get('/busRouterbyID/:id', eventControll.getBusrouterbyID);
 
 router.get('/studentbyBusRouter/:id', eventControll.getStudentonBusRouter);

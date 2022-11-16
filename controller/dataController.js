@@ -12,6 +12,7 @@ const getallBusStudent = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+
 const getAllBusStop = async (req, res, next) => {
     try {
         const eventId = req.params.id;
@@ -85,6 +86,17 @@ const getEvent = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const getAllPickUpId_Router = async (req, res, next) => {
+    try {
+        const busId = req.params.id;
+        const event = await eventData.getPickUpId(busId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
 const getBusrouterbyID = async (req, res, next) => {
     try {
         const busId = req.params.id;
@@ -231,5 +243,6 @@ module.exports = {
     getManager,
     getAttendanceCurrent,
     getallbusStudentSemester,
-    deleteEvent
+    deleteEvent,
+    getAllPickUpId_Router
 }
