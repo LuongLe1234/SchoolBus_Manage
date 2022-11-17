@@ -13,6 +13,117 @@ const getallBusStudent = async (req, res, next) => {
     }
 }
 
+
+
+
+
+const getAmountBusrouter = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getBusAmount(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getAmountBusStudent = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getBusStudentAmount(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getAmountDriver = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getDriverAmount(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getBusStudent_Currently = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getStudentCurrently(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getBusStudent_ThisMonth = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getStudent_thisMonth(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getBusStudent_Thisyear = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getStudent_thisYear(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const getAllBusStop = async (req, res, next) => {
     try {
         const eventId = req.params.id;
@@ -221,6 +332,8 @@ const deleteEvent = async (req, res, next) => {
     }
 }
 
+
+
 module.exports = {
     getallBusDriver,
     getAllAttendance,
@@ -244,5 +357,11 @@ module.exports = {
     getAttendanceCurrent,
     getallbusStudentSemester,
     deleteEvent,
-    getAllPickUpId_Router
+    getAllPickUpId_Router,
+    getAmountBusrouter,
+    getAmountBusStudent,
+    getAmountDriver,
+    getBusStudent_Currently,
+    getBusStudent_ThisMonth,
+    getBusStudent_Thisyear
 }

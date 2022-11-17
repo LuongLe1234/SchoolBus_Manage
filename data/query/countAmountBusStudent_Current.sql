@@ -1,0 +1,2 @@
+SELECT COUNT(studentCode) as AmountStudentBus
+FROM dbo.busStudent_CurrentSemester

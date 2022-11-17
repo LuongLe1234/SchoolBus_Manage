@@ -56,6 +56,28 @@ router.put('/event/:id', eventControll.updatEvent);
 router.delete('/event/:id', eventControll.deleteEvent);
 
 
+
+
+
+
+
+
+
+
+
+
+router.get('/amountBusRouter', eventControll.getAmountBusrouter);
+router.get('/amountBusStudent', eventControll.getAmountBusStudent);
+router.get('/amountDriver', eventControll.getAmountDriver);
+router.get('/studentCurrently', eventControll.getBusStudent_Currently);
+router.get('/studentCreate_thismonth', eventControll.getBusStudent_ThisMonth);
+router.get('/studentCreate_thisyear', eventControll.getBusStudent_Thisyear);
+
+
+
+
+
+
 module.exports = {
     routes: router
 }

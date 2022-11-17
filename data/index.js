@@ -16,6 +16,125 @@ const getBStudent = async(eventId) => {
     }
 }
 
+const getBusAmount = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.countAmountBusRouter);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const getBusStudentAmount = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.countAmountBusStudent_Current);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getDriverAmount
+= async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.countAmoutDriver);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getStudentCurrently
+
+= async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.getBusStudent_recentlycreated);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const getStudent_thisMonth
+
+= async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.getBusStudent_create_thisMonth);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getStudent_thisYear
+
+
+= async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.getBusStudent_create_thisYear);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const getBusStop = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -351,5 +470,11 @@ module.exports = {
     getAttendanceToday,
     getDetailAttend,
     deleteEvent,
-    getPickUpId
+    getPickUpId,
+    getBusAmount,
+    getBusStudentAmount,
+    getDriverAmount,
+    getStudentCurrently,
+    getStudent_thisMonth,
+    getStudent_thisYear
 }
