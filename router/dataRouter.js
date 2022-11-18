@@ -9,6 +9,9 @@ router.get('/events', eventControll.getallBusStudent);
 
 router.get('/busStop', eventControll.getAllBusStop);
 
+router.get('/campus', eventControll.getAllCampus);
+
+
 router.get('/busStudentSemester', eventControll.getallbusStudentSemester);
 
 router.get('/eventBusRouter',eventControll.getallBusrouter);

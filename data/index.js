@@ -16,6 +16,7 @@ const getBStudent = async(eventId) => {
     }
 }
 
+
 const getBusAmount = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -223,6 +224,21 @@ const getallBusDriver = async(eventId) => {
     }
 }
 
+const getCampus = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.getCampus);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+
+
 
 
 
@@ -386,7 +402,7 @@ const createBusStudent = async (eventdata) => {
                             .input('studentCode', sql.VarChar(15), eventdata.studentCode)
                             .input('userId', sql.VarChar(20), eventdata.userId)
                             .input('birthday', sql.Date, eventdata.birthday)
-                            .input('parentPhoneNumber', sql.varchar(15), eventdata.parentPhoneNumber)
+                            .input('parentPhoneNumber', sql.VarChar(15), eventdata.parentPhoneNumber)
                             .input('gender', sql.Bit, eventdata.gender)
                             .input('semesterId', sql.VarChar(10),eventdata.semesterId)
                             .input('busId',sql.VarChar(20),eventdata.busId)
@@ -476,5 +492,6 @@ module.exports = {
     getDriverAmount,
     getStudentCurrently,
     getStudent_thisMonth,
-    getStudent_thisYear
+    getStudent_thisYear,
+    getCampus
 }

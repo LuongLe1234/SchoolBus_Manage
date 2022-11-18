@@ -14,7 +14,7 @@ VALUES
         @parentPhoneNumber,
         @gender
     )
-Insert INTO dbo.busStudent
+Insert INTO dbo.busStudent_CurrentSemester
 (
     studentCode,
     semesterId,
@@ -25,3 +25,8 @@ VALUES(
     @semesterId,
     @busId
 )
+
+SELECT [studentCode]
+  FROM [SchoolBus].[dbo].[busStudent_CurrentSemester]
+  where studentCode=@studentCode
+

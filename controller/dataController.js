@@ -13,6 +13,17 @@ const getallBusStudent = async (req, res, next) => {
     }
 }
 
+const getAllCampus = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getCampus(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
 
 
 
@@ -363,5 +374,6 @@ module.exports = {
     getAmountDriver,
     getBusStudent_Currently,
     getBusStudent_ThisMonth,
-    getBusStudent_Thisyear
+    getBusStudent_Thisyear,
+    getAllCampus
 }
