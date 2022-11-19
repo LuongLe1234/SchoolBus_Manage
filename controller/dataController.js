@@ -23,6 +23,17 @@ const getAllCampus = async (req, res, next) => {
     }
 }
 
+const getCountAborAttend_30dayneariest = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getCount(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
 
 
 
@@ -289,7 +300,7 @@ const createNewBusStudent = async (req, res, next) => {
     try {
         const eventdata = req.body;
         const insert = await eventData.createBusStudent(eventdata);
-        res.send(insert);
+        res.send(insert)
     } catch (error) {
         res.status(400).send(error.message);
     }
@@ -375,5 +386,6 @@ module.exports = {
     getBusStudent_Currently,
     getBusStudent_ThisMonth,
     getBusStudent_Thisyear,
-    getAllCampus
+    getAllCampus,
+    getCountAborAttend_30dayneariest
 }

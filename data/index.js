@@ -236,6 +236,19 @@ const getCampus = async(eventId) => {
         return error.message;
     }
 }
+const getCount = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.rateAttendance);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 
 
 
@@ -493,5 +506,6 @@ module.exports = {
     getStudentCurrently,
     getStudent_thisMonth,
     getStudent_thisYear,
-    getCampus
+    getCampus,
+    getCount
 }

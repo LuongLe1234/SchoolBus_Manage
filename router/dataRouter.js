@@ -68,6 +68,7 @@ router.delete('/event/:id', eventControll.deleteEvent);
 
 
 
+router.get('/rateAttendance', eventControll.getCountAborAttend_30dayneariest);
 
 router.get('/amountBusRouter', eventControll.getAmountBusrouter);
 router.get('/amountBusStudent', eventControll.getAmountBusStudent);
