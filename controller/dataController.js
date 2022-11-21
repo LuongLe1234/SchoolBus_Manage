@@ -1,7 +1,7 @@
 'use strict';
 
 
-const eventData = require('../data');
+const eventData = require('../service');
 
 const getallBusStudent = async (req, res, next) => {
     try {
@@ -175,13 +175,14 @@ const getCountAbsent = async (req, res, next) => {
 }
 const getallbusStudentSemester = async (req, res, next) => {
     try {
-        const eventId = req.params.id;
-        const event = await eventData.getnow(eventId);
+        const page = req.params.id;
+        const event = await eventData.getnow(page);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
     }
 }
+
 const getallBusrouter = async (req, res, next) => {
     try {
         const eventId = req.params.id;

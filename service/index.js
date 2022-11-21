@@ -160,12 +160,12 @@ const getCountAorA = async(busStudentId) => {
         return error.message;
     }
 }
-const getnow = async(eventId) => {
+const getnow = async(page) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
-                            .input('eventId', sql.Text, eventId)
+                            .input('page', sql.Int, page)
                             .query(sqlQueries.getStudentBusthisSemester);
         return event.recordset;
     } catch (error) {

@@ -12,7 +12,7 @@ router.get('/busStop', eventControll.getAllBusStop);
 router.get('/campus', eventControll.getAllCampus);
 
 
-router.get('/busStudentSemester', eventControll.getallbusStudentSemester);
+router.get('/busStudentSemester/:id', eventControll.getallbusStudentSemester);
 
 router.get('/eventBusRouter',eventControll.getallBusrouter);
 
@@ -27,7 +27,7 @@ router.get('/busRouterbyID/:id', eventControll.getBusrouterbyID);
 router.get('/studentbyBusRouter/:id', eventControll.getStudentonBusRouter);
 
 
-router.get('/manager/:id', eventControll.getManager);
+router.get('/manager', eventControll.getManager);
 
 router.get('/countA/:id', eventControll.getCountAbsent);
 
