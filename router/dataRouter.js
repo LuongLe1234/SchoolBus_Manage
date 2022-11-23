@@ -20,14 +20,19 @@ router.get('/eventBusdriver',eventControll.getallBusDriver);
 
 router.get('/eventgetID/:id', eventControll.getEvent);
 
-router.get('/allPickUpId/:id', eventControll.getAllPickUpId_Router);
+router.get('/allPickUpId', eventControll.getAllPickUpId_Router);
 
 router.get('/busRouterbyID/:id', eventControll.getBusrouterbyID);
 
 router.get('/studentbyBusRouter/:id', eventControll.getStudentonBusRouter);
 
+router.get('/qrCode/:id', eventControll.getQrCode);
+
+
 
 router.get('/manager', eventControll.getManager);
+
+router.get('/busIdandQr', eventControll.getBusIdandQrCode);
 
 router.get('/countA/:id', eventControll.getCountAbsent);
 

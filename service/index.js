@@ -17,6 +17,19 @@ const getBStudent = async(eventId) => {
 }
 
 
+const getbusandqr = async(eventId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('eventId', sql.Text, eventId)
+                            .query(sqlQueries.takeQrcodeByBusId);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const getBusAmount = async(eventId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -267,12 +280,11 @@ const getById = async(studentCode) => {
         return error.message;
     }
 }
-const getPickUpId = async(busId) => {
+const getPickUpId = async() => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
-                            .input('busId', sql.VarChar(20), busId)
                             .query(sqlQueries.getAllPickUpId);
         return event.recordset;
     } catch (error) {
@@ -311,6 +323,18 @@ const getManagerbyrole = async(roleId) => {
         const event = await pool.request()
                             .input('roleId', sql.Int, roleId)
                             .query(sqlQueries.listallAccount);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getQrCodebyBusId = async(busId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('busId', sql.VarChar(20), busId)
+                            .query(sqlQueries.searchQrcodebyBusId);
         return event.recordset;
     } catch (error) {
         return error.message;
@@ -475,6 +499,8 @@ const deleteEvent = async (eventId) => {
 }
 
 module.exports = {
+    getQrCodebyBusId,
+    getbusandqr,
     getallBusDriver,
     getallBusrouter,
     getallAttendance,

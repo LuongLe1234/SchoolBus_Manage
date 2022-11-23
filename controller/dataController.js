@@ -355,9 +355,32 @@ const deleteEvent = async (req, res, next) => {
     }
 }
 
+const getBusIdandQrCode = async (req, res, next) => {
+    try {
+        const eventId = req.params.id;
+        const event = await eventData.getbusandqr(eventId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getQrCode = async (req, res, next) => {
+    try {
+        const busId = req.params.id;
+        const event = await eventData.getQrCodebyBusId(busId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
+
 
 
 module.exports = {
+    getQrCode,
+    getBusIdandQrCode,
     getallBusDriver,
     getAllAttendance,
     getallBusrouter,
