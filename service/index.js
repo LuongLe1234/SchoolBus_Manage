@@ -161,12 +161,12 @@ const getBusStop = async(eventId) => {
         return error.message;
     }
 }
-const getCountAorA = async(busStudentId) => {
+const getCountAorA = async(studentCode) => {
     try {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
-                            .input('busStudentId', sql.NVarChar(50), busStudentId)
+                            .input('studentCode', sql.VarChar(15), studentCode)
                             .query(sqlQueries.countAbsent);
         return event.recordset;
     } catch (error) {
@@ -309,7 +309,7 @@ const getStudentOnBus = async(busId) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
-                            .input('busId', sql.NVarChar(50), busId)
+                            .input('busId', sql.VarChar(20), busId)
                             .query(sqlQueries.listStudentonBusRouter);
         return event.recordset;
     } catch (error) {
@@ -322,7 +322,7 @@ const getManagerbyrole = async(roleId) => {
         const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
                             .input('roleId', sql.Int, roleId)
-                            .query(sqlQueries.listallAccount);
+                            .query(sqlQueries.listallAccountActive);
         return event.recordset;
     } catch (error) {
         return error.message;
@@ -359,7 +359,7 @@ const getDetailAttend = async(studentCode) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
-                            .input('studentCode', sql.NVarChar(50), studentCode)
+                            .input('studentCode', sql.VarChar(15), studentCode)
                             .query(sqlQueries.detailAttendance);
         return event.recordset;
     } catch (error) {
@@ -372,7 +372,7 @@ const getAttendanceToday = async(eventId) => {
         let pool = await sql.connect(config.sql);
         const sqlQueries = await utils.loadSqlQueries('query');
         const event = await pool.request()
-                            .input('eventId', sql.Text, eventId)
+                            .input('busId', sql.VarChar(20), eventId)
                             .query(sqlQueries.attendanceStudentToday);
         return event.recordset;
     } catch (error) {
@@ -437,7 +437,7 @@ const createBusStudent = async (eventdata) => {
         const sqlQueries = await utils.loadSqlQueries('query');
         const insertEvent = await pool.request()
                             .input('studentCode', sql.VarChar(15), eventdata.studentCode)
-                            .input('userId', sql.VarChar(20), eventdata.userId)
+                            .input('email', sql.VarChar(50), eventdata.email)
                             .input('birthday', sql.Date, eventdata.birthday)
                             .input('parentPhoneNumber', sql.VarChar(15), eventdata.parentPhoneNumber)
                             .input('gender', sql.Bit, eventdata.gender)
@@ -485,6 +485,22 @@ const updateEvent = async (eventId, data) => {
     }
 }
 
+const updateDetailofStudent = async (eventId, data) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const update = await pool.request()
+                        .input('email', sql.VarChar(50), eventId)
+                        .input('fullName', sql.NVarChar(30), data.fullName)
+                        .input('phoneNumber', sql.VarChar(15), data.phoneNumber)
+                        .input('parentPhoneNumber',  sql.VarChar(15), data.parentPhoneNumber)
+                        .query(sqlQueries.updateDetailStudent);
+        return update.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 const deleteEvent = async (eventId) => {
     try {
         let pool = await sql.connect(config.sql);
@@ -498,7 +514,104 @@ const deleteEvent = async (eventId) => {
     }
 }
 
+const getbyEmail = async(email) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('email', sql.VarChar(50), email)
+                            .query(sqlQueries.checkRole);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const getDetailStudent = async(email) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('email', sql.VarChar(50), email)
+                            .query(sqlQueries.getDetailStudentbyEmail);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getAttendancebyDay = async(day,email) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('dateAttendance', sql.Date, day)
+                            .input('email',sql.VarChar(50),email)
+                            .query(sqlQueries.getAttendancebyDay_Student);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
+const getCountAttendance = async(email) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('email',sql.VarChar(50),email)
+                            .query(sqlQueries.rateAttendance_7daysneariest);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getAccount_ActiveorInactive = async(email) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('email',sql.VarChar(50),email)
+                            .query(sqlQueries.rateAttendance_7daysneariest);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getAccountinSystem = async(roleId) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('roleId',sql.VarChar(10),roleId)
+                            .query(sqlQueries.listAllAcount);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+const getCheckQrCode = async(qrCode,email) => {
+    try {
+        let pool = await sql.connect(config.sql);
+        const sqlQueries = await utils.loadSqlQueries('query');
+        const event = await pool.request()
+                            .input('qrCode', sql.VarChar(36), qrCode)
+                            .input('email',sql.VarChar(50),email)
+                            .query(sqlQueries.checkScanQr);
+        return event.recordset;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
+    getAccountinSystem,
+    getCheckQrCode,
+    getAccount_ActiveorInactive,
+    getCountAttendance,
+    getAttendancebyDay,
+    updateDetailofStudent,
+    getDetailStudent,
+    getbyEmail,
     getQrCodebyBusId,
     getbusandqr,
     getallBusDriver,

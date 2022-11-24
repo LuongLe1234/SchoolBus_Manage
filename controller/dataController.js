@@ -166,8 +166,8 @@ const getallAbsentStudentToday = async (req, res, next) => {
 }
 const getCountAbsent = async (req, res, next) => {
     try {
-        const busStudentId = req.params.id;
-        const event = await eventData.getCountAorA(busStudentId);
+        const studentCode = req.params.id;
+        const event = await eventData.getCountAorA(studentCode);
         res.send(event);
     } catch (error) {
         res.status(400).send(error.message);
@@ -373,12 +373,103 @@ const getQrCode = async (req, res, next) => {
         res.status(400).send(error.message);
     }
 }
+const getRolebyEmail = async (req, res, next) => {
+    try {
+        const email = req.params.id;
+        const event = await eventData.getbyEmail(email);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getDetailbyEmailofStudent = async (req, res, next) => {
+    try {
+        const email = req.params.id;
+        const event = await eventData.getDetailStudent(email);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const updateStudent = async (req, res, next) => {
+    try {
+        const eventId =  req.params.id;
+        const data = req.body;
+        const updated = await eventData.updateDetailofStudent(eventId, data);
+        res.send(updated);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getAttendancebyDay_Student = async (req, res, next) => {
+    try {
+        const day = req.params.id;
+        const email=req.params.email;
+        const event = await eventData.getAttendancebyDay(day,email);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const get7dayAttendance_neariest = async (req, res, next) => {
+    try {
+        const email = req.params.id;
+        const event = await eventData.getCountAttendance(email);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getallAcount_ActiveandInActive = async (req, res, next) => {
+    try {
+        const email = req.params.id;
+        const event = await eventData.getAccount_ActiveorInactive(email);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getCheckQrCodeScan_Student = async (req, res, next) => {
+    try {
+        const qrCode = req.params.id;
+        const email=req.params.email;
+        const event = await eventData.getCheckQrCode(qrCode,email);
+        res.send(event);
+        
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+const getAllAccountinSystem = async (req, res, next) => {
+    try {
+        const roleId = req.params.id;
+        const event = await eventData.getAccountinSystem(roleId);
+        res.send(event);
+    } catch (error) {
+        res.status(400).send(error.message);
+    }
+}
+
+
+
+
+
 
 
 
 
 
 module.exports = {
+    getAllAccountinSystem,
+    
+    getCheckQrCodeScan_Student,
+    getallAcount_ActiveandInActive,
+    get7dayAttendance_neariest,
+    getAttendancebyDay_Student,
+    
+    updateStudent,
+    getDetailbyEmailofStudent,
+    getRolebyEmail,
     getQrCode,
     getBusIdandQrCode,
     getallBusDriver,

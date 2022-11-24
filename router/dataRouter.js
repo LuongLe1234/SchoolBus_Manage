@@ -20,6 +20,11 @@ router.get('/eventBusdriver',eventControll.getallBusDriver);
 
 router.get('/eventgetID/:id', eventControll.getEvent);
 
+router.get('/checkRolebyEmail/:id', eventControll.getRolebyEmail);
+
+router.get('/getDetailStudentbyEmail/:id', eventControll.getDetailbyEmailofStudent);
+
+
 router.get('/allPickUpId', eventControll.getAllPickUpId_Router);
 
 router.get('/busRouterbyID/:id', eventControll.getBusrouterbyID);
@@ -27,6 +32,15 @@ router.get('/busRouterbyID/:id', eventControll.getBusrouterbyID);
 router.get('/studentbyBusRouter/:id', eventControll.getStudentonBusRouter);
 
 router.get('/qrCode/:id', eventControll.getQrCode);
+
+
+router.get('/getAllAccountinSystem', eventControll.getAllAccountinSystem);
+
+router.get('/getAttendancebyDay/:id/:email', eventControll.getAttendancebyDay_Student);
+
+router.get('/get7dayAttendance/:id', eventControll.get7dayAttendance_neariest);
+
+router.get('/checkScanQr/:id/:email', eventControll.getCheckQrCodeScan_Student);
 
 
 
@@ -38,7 +52,7 @@ router.get('/countA/:id', eventControll.getCountAbsent);
 
 router.get('/attendanceCode/:id', eventControll.getAttendanceCode);
 
-router.get('/attendanceCurrent', eventControll.getAttendanceCurrent);
+router.get('/attendanceCurrent/:id', eventControll.getAttendanceCurrent);
 
 router.get('/attendanceCodeDetail/:id', eventControll.getAttendanceDetail);
 
@@ -57,6 +71,8 @@ router.post('/createBusRouter', eventControll.createnewBusRouter);
 
 
 router.put('/updateManager/:id', eventControll.updateUserSManager);
+
+router.put('/updateDetailStudent/:id', eventControll.updateStudent);
 
 
 router.put('/event/:id', eventControll.updatEvent);
