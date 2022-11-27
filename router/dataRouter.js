@@ -92,6 +92,7 @@ router.delete('/event/:id', eventControll.deleteEvent);
 router.get('/rateAttendance', eventControll.getCountAborAttend_30dayneariest);
 
 router.get('/amountBusRouter', eventControll.getAmountBusrouter);
+router.get('/amountBusRouter', eventControll.getAmountBusrouter);
 router.get('/amountBusStudent', eventControll.getAmountBusStudent);
 router.get('/amountDriver', eventControll.getAmountDriver);
 router.get('/studentCurrently', eventControll.getBusStudent_Currently);
